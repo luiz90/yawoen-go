@@ -160,3 +160,16 @@ func (c *Controller) MergeCompany(w http.ResponseWriter, r *http.Request) {
 	return
 
 }
+
+// SearchCompanies SearchCompanies /
+func (c *Controller) SearchCompanies(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Query().Get("name")
+	zip := r.URL.Query().Get("zip")
+	companies := c.Repository.FindByNameAndZip(name, zip)
+	data, _ := json.Marshal(companies)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(http.StatusOK)
+	w.Write(data)
+	return
+}

@@ -46,15 +46,15 @@ var routes = Routes{
 	Route{
 		"MergCompany",
 		"POST",
-		"/actions/merge",
+		"/v1/data",
 		controller.MergeCompany,
 	},
-	// Route{
-	// 	"SearchCompanies",
-	// 	"GET",
-	// 	"/v1/companies/",
-	// 	controller.SearchCompanies,
-	// },
+	Route{
+	"SearchCompanies",
+	"GET",
+	"/v1/companies/search",
+	controller.SearchCompanies,
+	},
 }
 
 //NewRouter configures a new router to the API

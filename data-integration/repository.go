@@ -106,3 +106,16 @@ func (r Repository) FindByName(name string) Company {
 	c.Find(bson.M{"name": strings.ToUpper(name)}).One(&results)
 	return results
 }
+
+func (r Repository) FindByNameAndZip(name, zip string) Companies {
+	session, err := mgo.Dial(SERVER)
+	if err != nil {
+		fmt.Println("Failed to establish connection to Mongo server:", err)
+	}
+	defer session.Close()
+	results := Companies{}
+	c := session.DB(DBNAME).C(DOCNAME)
+	search := bson.RegEx{name+".*", ""}
+	c.Find(bson.M{"name": search, "addresszip" : zip }).All(&results)
+	return results
+}
